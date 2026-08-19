@@ -1,0 +1,87 @@
+# Registro de interacciones con IA (copilot)
+
+## Interacción 1
+**Pregunta:** ¿Puede un  modelo de abstracción y encapsulamiento en Java prevenir mutaciones no deseadas en un entorno concurrente?  
+**Respuesta (IA):** Piensa en esto:  
+
+- ¿El encapsulamiento por sí solo garantiza la inmutabilidad de los objetos, o depende también de cómo se diseñan sus métodos de acceso y modificación?  
+- ¿Qué diferencia conceptual existe entre “ocultar estado” y “proteger estado” en un entorno concurrente?  
+- ¿Cómo se relaciona el uso de clases inmutables con la prevención de *race conditions*?  
+- ¿Qué papel juegan las herramientas de sincronización (locks, semáforos, `volatile`) frente a un modelo puramente orientado a objetos?  
+- ¿Podría un diseño basado en *immutable value objects* y *thread-safe wrappers* ser más robusto que confiar únicamente en encapsulamiento clásico?  
+
+📐 **Diagrama conceptual en texto**  
+
+```
+[Encapsulamiento] ---> [Control de acceso a atributos]
+        |
+        v
+[Abstracción] ---> [Definición clara de responsabilidades]
+        |
+        v
+[Inmutabilidad] ---> [Objetos cuyo estado no cambia]
+        |
+        v
+[Concurrencia segura] ---> [Evita mutaciones no deseadas]
+        |
+        v
+[Herramientas adicionales] ---> [Locks, Atomic, Concurrent Collections]
+```
+
+La pregunta clave que deberías explorar es:  
+👉 ¿Hasta qué punto el diseño orientado a objetos puede prevenir mutaciones no deseadas sin apoyo explícito de mecanismos de concurrencia?  
+
+¿Quieres que te guíe hacia ejemplos de patrones de diseño industriales (como *Immutable Objects* o *Monitor Objects*) que suelen aplicarse en sistemas agrícolas e industriales de gran escala?
+
+---
+
+## Interacción 2
+**Pregunta:** ¿Cómo gestiona Java el despacho dinámico de métodos a diferencia de las vtables de C++?
+**Respuesta (IA):** **Java gestiona el despacho dinámico de métodos de forma automática: todos los métodos de instancia (no estáticos, no privados, no finales) son virtuales por defecto, mientras que en C++ el programador debe declarar explícitamente un método como `virtual` para que se use la vtable.** Esto significa que en Java el runtime siempre decide qué implementación ejecutar según el tipo real del objeto, mientras que en C++ el compilador usa la vtable solo si se indicó `virtual`.  [javaspring.net](https://www.javaspring.net/blog/why-does-inheritance-behave-differently-in-java-and-c-with-superclasses-calling-or-not-subclasses-methods/)  [TutorialsPoint](https://www.tutorialspoint.com/article/default-virtual-behavior-in-cplusplus-vs-java)  [thelinuxcode.com](https://thelinuxcode.com/how-default-virtual-behavior-differs-in-c-and-java-and-why-it-still-bites-in-production/)  
+
+---
+
+## 🔑 Diferencias Clave
+
+| Aspecto | Java | C++ |
+|---------|------|-----|
+| **Comportamiento por defecto** | Métodos de instancia son virtuales automáticamente | Métodos son **no virtuales** por defecto |
+| **Control de sobrescritura** | Se usa `final` para impedir override | Se usa `virtual` para habilitar override |
+| **Despacho** | Siempre dinámico (late binding) salvo en métodos `final`, `static` o `private` | Estático (early binding) salvo que el método sea `virtual` |
+| **Implementación interna** | JVM mantiene estructuras de despacho dinámico; no expone vtables directamente | Compiladores típicamente generan una **vtable** con punteros a funciones virtuales |
+| **Diseño de APIs** | Polimorfismo automático, más flexible pero puede introducir sobrecarga | Polimorfismo explícito, más control pero mayor riesgo de errores si se olvida `virtual` |
+
+---
+
+## 📐 Diagrama Conceptual en Texto
+
+```
+Java:
+[Clase Base] --(método virtual implícito)--> [JVM runtime]
+      |
+      v
+[Objeto real] determina implementación
+
+C++:
+[Clase Base] --(método no virtual por defecto)--> [Compilador]
+      |
+      v
+Si "virtual" declarado --> [vtable lookup en runtime]
+Si no --> [llamada directa al método base]
+```
+
+---
+
+## Preguntas Guía para Reflexión
+
+- ¿Qué implicaciones tiene que en Java todo sea virtual por defecto en términos de **rendimiento** y **mantenibilidad**?  
+- ¿Cómo afecta esta diferencia al diseñar **APIs industriales** donde la estabilidad y previsibilidad del comportamiento son críticas?  
+- ¿Qué riesgos existen en C++ si un desarrollador olvida marcar un método como `virtual` en una jerarquía compleja?  
+- ¿En Java, conviene marcar métodos como `final` para evitar sobrecarga accidental en sistemas de gran escala?  
+- ¿Cómo influye esta diferencia en la **seguridad de refactorización** y en la facilidad de extender sistemas agrícolas e industriales?  
+
+---
+
+👉 La clave es que **Java favorece la flexibilidad y el polimorfismo automático**, mientras que **C++ exige intención explícita** para habilitar despacho dinámico. Esto cambia la forma en que un arquitecto debe pensar en **robustez y control de diseño**.  
+
+¿Quieres que te guíe hacia un análisis de **patrones de diseño industriales** que aprovechan estas diferencias (por ejemplo, *Template Method* en Java vs. *CRTP* en C++)?
