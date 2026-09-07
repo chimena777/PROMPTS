@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net">
+<mxfile host="app.diagrams.net" pages="2">
   <diagram name="Página-1" id="T2wcJJZ5_KHU-cxGaiTl">
     <mxGraphModel dx="876" dy="612" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -43,6 +43,14 @@
         <mxCell id="EjOEmTRrl7BktmG82h_h-32" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Recibe los registros" vertex="1">
           <mxGeometry height="60" width="140" x="319" y="420" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="wZ4HyVY2MkQDaN_fEVly" name="Página-2">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
